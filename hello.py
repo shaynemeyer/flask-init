@@ -1,9 +1,9 @@
-from flask import Flask
+from flask import Flask, url_for
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "Index Page"
+    return url_for('show_user_profile', username='Shayne')
 
 @app.route('/hello')
 def hello_world():
