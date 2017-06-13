@@ -19,12 +19,12 @@ app = Flask(__name__)
 # def show_post(post_id):
 #     return "Post %d" % post_id
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.values:
+    if request.method == 'POST':
         return 'username is ' + request.values["username"]
     else:
-        return '<form method="get" action="/login">' \
+        return '<form method="post" action="/login">' \
            '<input type="text" name="username" />' \
            '<p></p>' \
            '<button type="submit">Submit</button></form>'
