@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 app = Flask(__name__)
 
 # @app.route('/')
@@ -19,15 +19,21 @@ app = Flask(__name__)
 # def show_post(post_id):
 #     return "Post %d" % post_id
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return 'username is ' + request.values["username"]
-    else:
-        return '<form method="post" action="/login">' \
-           '<input type="text" name="username" />' \
-           '<p></p>' \
-           '<button type="submit">Submit</button></form>'
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         return 'username is ' + request.values["username"]
+#     else:
+#         return '<form method="post" action="/login">' \
+#            '<input type="text" name="username" />' \
+#            '<p></p>' \
+#            '<button type="submit">Submit</button></form>'
+
+
+@app.route('/hello')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
 
 if __name__ == '__main__':
     app.debug = True
