@@ -1,3 +1,5 @@
+import pymysql
+
 from flask import Flask, url_for, request, render_template, redirect, flash, make_response, session
 app = Flask(__name__)
 
@@ -66,7 +68,22 @@ def logout():
 
 
 def valid_login(username, password):
-    if username == password:
+    # mysql
+    MYSQL_DATABASE_HOST = 'localhost'
+    MYSQL_DATABASE_USER = ''
+    MYSQL_DATABASE_PASSWORD = ''
+    MYSQL_DATABASE_DB = 'my_flask_app'
+    conn = pymysql.connect(
+        host=MYSQL_DATABASE_HOST,
+        user=MYSQL_DATABASE_USER,
+        passwd=MYSQL_DATABASE_PASSWORD,
+        db=MYSQL_DATABASE_DB
+    )
+    cursor = conn.cursor()
+    cursor.execute("SELECT * from user WHERE username='%s' AND password='%s'" % (username, password))
+    data = cursor.fetchone()
+
+    if data:
         return True
     else:
         return False
